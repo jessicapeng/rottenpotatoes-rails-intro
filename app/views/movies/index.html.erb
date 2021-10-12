@@ -20,11 +20,11 @@
   <thead>
     <tr>
       <th class = "<%= @movie_colortile %>"> 
-        <%= link_to "Movies", movies_path(sort: 'title', ratings: @ratingsh), id:'title_header' %>
+        <%= link_to "Movies", movies_path(sort: 'title', ratings: @ratingsh, home: '1'), id:'title_header' %>
       </th>
       <th>Rating</th>
       <th class = "<%= @date_colortile %>">
-         <%= link_to "Release Date", movies_path(sort: 'date', ratings: @ratingsh), id:'release_date_header' %>
+         <%= link_to "Release Date", movies_path(sort: 'date', ratings: @ratingsh, home: '1'), id:'release_date_header' %>
       </th>
       <th>More Info</th>
     </tr>

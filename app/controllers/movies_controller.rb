@@ -11,10 +11,14 @@ class MoviesController < ApplicationController
     #   redirect_to movies_path(ratings: @all_ratings,)
    #  end 
 
+     if params[:home] != '1' # came from another paeg
+       redirect_to movies_path(sort:session[:sort], ratings: Hash[session[:ratings].collect{|item| [item, "1"]}], home: '1')
+     else
+       
      @all_ratings = Movie.all_ratings  
-     if params[:ratings] == nil && session[:ratings] == nil
+     if params[:ratings] == nil && session[:ratings] == nil # first time visiting page 
          @ratings_to_show = @all_ratings 
-         session[:ratings] = @ratings_to_show # but ratings to show here 
+         session[:ratings] = @ratings_to_show # put ratings to show here 
          @ratingsh = Hash[@all_ratings.collect{|item| [item, "1"]}]
        
      elsif params[:ratings] == nil && params[:home] == '1' # clicked from refresh button
@@ -46,6 +50,7 @@ class MoviesController < ApplicationController
       @movies = Movie.with_ratings(session[:ratings])  
     end
     @ratings_to_show = session[:ratings] || {} || param[:ratings].keys
+    end 
   end   
 
   def new
