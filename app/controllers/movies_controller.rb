@@ -12,7 +12,6 @@ class MoviesController < ApplicationController
    #  end 
 
      @all_ratings = Movie.all_ratings  
-     
      if params[:ratings] == nil && session[:ratings] == nil
          @ratings_to_show = @all_ratings 
          session[:ratings] = @ratings_to_show # but ratings to show here 
@@ -34,20 +33,19 @@ class MoviesController < ApplicationController
      end 
      
      if params[:sort] || session[:sort]
-      if params[:sort]
-        session[:sort] = params[:sort] 
-      end
-      if session[:sort] == "title"
-         @movie_colortile = "hilite bg-warning"
-      else
-         @date_colortile = "hilite bg-warning"
-      end
+        if params[:sort]
+          session[:sort] = params[:sort] 
+        end
+        if session[:sort] == "title"
+           @movie_colortile = "hilite bg-warning"
+        else
+           @date_colortile = "hilite bg-warning"
+        end
       @movies = Movie.sorted_movies(session[:sort], session[:ratings])
     else
       @movies = Movie.with_ratings(session[:ratings])  
     end
-     
-    @ratings_to_show = session[:ratings] || {} || param[:ratings]
+    @ratings_to_show = session[:ratings] || {} || param[:ratings].keys
   end   
 
   def new
