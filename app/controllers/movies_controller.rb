@@ -6,9 +6,34 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
-  def index
-    @movies = Movie.all
-  end
+   def index
+     @all_ratings = Movie.all_ratings
+     if params[:ratings] == nil
+       @ratings_to_show = @all_ratings
+     else
+       @ratings_to_show = params[:ratings].keys 
+       session[:ratings] = @ratings_to_show
+     end 
+     
+    @movies = Movie.with_ratings(session[:ratings])
+    
+    if params[:sort] == "title" 
+      @movie_colortile = "hilite bg-warning"
+      @movies = Movie.sorted_movies(params[:sort], session[:ratings])
+      @ratings_to_show = session[:ratings]
+    end
+     
+    if params[:sort] == "date" 
+      @date_colortile = "hilite bg-warning"
+      @movies = Movie.sorted_movies(params[:sort], session[:ratings])
+      @ratings_to_show = session[:ratings]
+    end 
+     
+    if params[:sort] == nil
+      @movies = Movie.with_ratings(@ratings_to_show)  
+    end
+   
+  end   
 
   def new
     # default: render 'new' template
