@@ -5,7 +5,7 @@
 <h2>All Movies</h2>
 <%# Part 1: Start here... %>
 <%= form_tag movies_path, method: :get, id: 'ratings_form' do %>
-  <%= hidden_field_tag :homepage, '1' %> 
+  <%= hidden_field_tag :home, '1' %> 
   Include:
   <% @all_ratings.each do |rating| %>
     <div class="form-check  form-check-inline">
@@ -20,11 +20,11 @@
   <thead>
     <tr>
       <th class = "<%= @movie_colortile %>"> 
-        <%= link_to "Movies", movies_path(sort: 'title', ratings: @ratingsh, homepage: '1'), id:'title_header' %>
+        <%= link_to "Movies", movies_path(sort: 'title', ratings: @ratingsh, home: '1'), id:'title_header' %>
       </th>
       <th>Rating</th>
       <th class = "<%= @date_colortile %>">
-         <%= link_to "Release Date", movies_path(sort: 'date', ratings: @ratingsh, homepage: '1'), id:'release_date_header' %>
+         <%= link_to "Release Date", movies_path(sort: 'date', ratings: @ratingsh, home: '1'), id:'release_date_header' %>
       </th>
       <th>More Info</th>
     </tr>
