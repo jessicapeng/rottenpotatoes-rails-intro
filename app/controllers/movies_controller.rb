@@ -7,22 +7,26 @@ class MoviesController < ApplicationController
   end
 
    def index
-   #  if params == nil && session != nil
- #      redirect_to movies_path("ratings" => @ratings_to_show, "sort" => session[:sort])
- #    end 
+    # if params == nil && session != nil
+    #   redirect_to movies_path(ratings: @all_ratings,)
+   #  end 
 
      @all_ratings = Movie.all_ratings  
+     
      if params[:ratings] == nil && session[:ratings] == nil
          @ratings_to_show = @all_ratings 
          session[:ratings] = @ratings_to_show # but ratings to show here 
          @ratingsh = Hash[@all_ratings.collect{|item| [item, "1"]}]
+       
      elsif params[:ratings] == nil && params[:home] == '1' # clicked from refresh button
        @ratings_to_show = @all_ratings 
        session[:ratings] = @ratings_to_show # but ratings to show here 
        @ratingsh = Hash[@all_ratings.collect{|item| [item, "1"]}]
+       
      elsif params[:ratings] == nil # clicked from movies page 
        params[:ratings] = session[:ratings]
-       @ratings_to_show = params[:ratings]
+       @ratings_to_show = session[:ratings]
+       
      else # replace sessions 
         session[:ratings] = params[:ratings].keys 
         @ratingsh =  Hash[session[:ratings].collect{|item| [item, "1"]}]
@@ -43,10 +47,7 @@ class MoviesController < ApplicationController
       @movies = Movie.with_ratings(session[:ratings])  
     end
      
-    @ratings_to_show = session[:ratings]
-     if @ratings_to_show == nil
-       @ratings_to_show = @all_ratings
-     end
+    @ratings_to_show = session[:ratings] || {} || param[:ratings]
   end   
 
   def new
