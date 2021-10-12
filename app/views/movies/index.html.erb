@@ -1,6 +1,6 @@
 <!--  This file is app/views/movies/index.html.erb -->
 
-<link rel="stylesheet" href="/app/assets/stylesheets/application.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <h2>All Movies</h2>
 <%# Part 1: Start here... %>
@@ -18,7 +18,7 @@
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-      <th class = "<%= @movie_colortile %>"> <!--hilite bg-warning--> 
+      <th class = "<%= @movie_colortile %>"> 
         <%= link_to "Movies", movies_path(sort: 'title', ratings: @ratingsh), id:'title_header' %>
           <!--<a href = "" id="title_header">Movie Title</a>-->
       </th>

@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
  #      redirect_to movies_path("ratings" => @ratings_to_show, "sort" => session[:sort])
  #    end 
      @all_ratings = Movie.all_ratings 
-     if params[:ratings].nil?
+     if params[:ratings].nil? 
        @ratings_to_show = @all_ratings 
      #  session[:ratings] = @ratings_to_show # but ratings to show here 
        @ratingsh = Hash[@all_ratings.collect{|item| [item, "1"]}]
