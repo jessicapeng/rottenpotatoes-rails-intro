@@ -42,7 +42,11 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.with_ratings(session[:ratings])  
     end
+     
     @ratings_to_show = session[:ratings]
+     if @ratings_to_show == nil
+       @ratings_to_show = @all_ratings
+     end
   end   
 
   def new
