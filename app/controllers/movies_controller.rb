@@ -7,15 +7,15 @@ class MoviesController < ApplicationController
   end
 
    def index
-     @all_ratings = Movie.all_ratings #needed for form
-     if params[:ratings].nil? == true # if no ratings, means show all ratings 
-       @ratings_to_show = @all_ratings # show all ratings
-      # session[:ratings] = @ratings_to_show # but ratings to show here 
+     @all_ratings = Movie.all_ratings 
+     if params[:ratings].nil? == true 
+       @ratings_to_show = @all_ratings 
+       session[:ratings] = @ratings_to_show # but ratings to show here 
      else
         session[:ratings] = params[:ratings].keys 
      end 
-   # @movies = Movie.with_ratings(session[:ratings])
-    if params[:sort] || session[:sort]
+     
+     if params[:sort] || session[:sort]
       if params[:sort]
         session[:sort] = params[:sort] 
       end
