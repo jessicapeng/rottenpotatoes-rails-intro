@@ -7,30 +7,32 @@ class MoviesController < ApplicationController
   end
 
    def index
-     @all_ratings = Movie.all_ratings
-     if params[:ratings] == nil
-       @ratings_to_show = @all_ratings
-     else
-       @ratings_to_show = params[:ratings].keys 
-       session[:ratings] = @ratings_to_show
-     end 
+     @all_ratings = Movie.all_ratings #needed for form
+     if params[:ratings] == nil # if no ratings, means show all ratings 
+       @ratings_to_show = Movie.all_ratings 
+       @movies = Movie.with_ratings(@ratings_to_show)
+    #   session[:ratings] = @ratings_to_show
+      else
+        @ratings_to_show = params[:ratings].keys 
+        session[:ratings] = @ratings_to_show
+      end 
      
-    @movies = Movie.with_ratings(session[:ratings])
+    #@movies = Movie.with_ratings(@ratings_to_show)
     
     if params[:sort] == "title" 
-      @movie_colortile = "hilite bg-warning"
+      @movie_colortile = "hilite bg-warning" 
       @movies = Movie.sorted_movies(params[:sort], session[:ratings])
       @ratings_to_show = session[:ratings]
     end
-     
-    if params[:sort] == "date" 
+    
+    if params[:sort] == "date"
       @date_colortile = "hilite bg-warning"
       @movies = Movie.sorted_movies(params[:sort], session[:ratings])
       @ratings_to_show = session[:ratings]
     end 
-     
+    
     if params[:sort] == nil
-      @movies = Movie.with_ratings(@ratings_to_show)  
+      @movies = Movie.with_ratings(session[:ratings])  
     end
    
   end   
