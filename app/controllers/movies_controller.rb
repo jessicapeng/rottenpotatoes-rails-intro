@@ -11,8 +11,11 @@ class MoviesController < ApplicationController
     #   redirect_to movies_path(ratings: @all_ratings,)
    #  end 
 
-     if params[:home] != '1' # came from another paeg
-       redirect_to movies_path(sort:session[:sort], ratings: Hash[session[:ratings].collect{|item| [item, "1"]}], home: '1')
+     if params[:home] != '1' # came from another page
+       if session[:ratings]
+         params[:ratings] = Hash[session[:ratings].collect{|item| [item, "1"]}]
+       end 
+       redirect_to movies_path(sort:session[:sort], ratings: params[:ratings], home: '1')
      else
        
      @all_ratings = Movie.all_ratings  
